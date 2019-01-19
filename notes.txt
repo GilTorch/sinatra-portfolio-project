@@ -1,0 +1,23 @@
+trainee 
+trainers
+admin
+
+users,roles,courses
+
+users --> username,email,password
+roles --> role_label,user_id
+course --> name, content,passed,user_id 
+
+Admin
+  - can CRUD on user 
+  - can CRUD on course 
+
+Trainers
+   -can only Read user
+   -can CRUD on course 
+  
+Trainee 
+   -can only read course
+
+Side note 
+  all user can pass the course
