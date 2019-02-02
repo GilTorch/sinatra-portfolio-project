@@ -12,6 +12,7 @@ gem 'require_all'
 gem 'sqlite3'
 gem 'pry'
 gem 'bcrypt'
+gem 'rerun'
 
 group :test do
   gem 'rspec'
