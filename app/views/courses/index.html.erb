@@ -1,0 +1,22 @@
+<ul>
+<h1> Curriculum </h1>
+<% @courses.each do |course| %>
+    <li>
+    <%= course.title %> - <%= course.passed %>
+    <ul>
+    <div>
+    <% course.chapters.each do |chapter| %>
+        <li>
+        <%= chapter.title %> - <%= chapter.passed%>
+        <ul> 
+            <% chapter.lessons.each do |lesson| %>
+                <a href="/lessons/<%=lesson.id%>"><%= lesson.title%> - <%= lesson.passed %></a>
+            <% end %>
+        </ul>
+        </li>
+    <% end %>  
+    </div>
+    </ul>
+    </li>
+   <% end %>
+</ul>
