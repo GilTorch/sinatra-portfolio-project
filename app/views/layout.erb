@@ -28,7 +28,7 @@
         <a class="nav-link <%= (!current_page.nil? && current_page=='signup') ? 'active' : ""  %>" href="/users/new">Sign Up</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+        <a class="nav-link  <%= (!current_page.nil? && current_page=='login') ? 'active' : ""  %>" href="/login">Log In</a>
     </li>
     </ul>
 
