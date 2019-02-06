@@ -6,14 +6,7 @@
     <ul>
     <div>
     <% course.chapters.each do |chapter| %>
-        <li>
-        <%= chapter.title %> - <%= chapter.passed%>
-        <ul> 
-            <% chapter.lessons.each do |lesson| %>
-                <a href="/lessons/<%=lesson.id%>"><%= lesson.title%> - <%= lesson.passed %></a>
-            <% end %>
-        </ul>
-        </li>
+        <li><a href="courses/<%=course.id%>/chapters/<%=chapter.id%>"><%= chapter.title %> - <%= chapter.passed%></li>
     <% end %>  
     </div>
     </ul>

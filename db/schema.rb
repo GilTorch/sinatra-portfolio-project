@@ -14,6 +14,7 @@ ActiveRecord::Schema.define(version: 2019_02_02_205731) do
 
   create_table "chapters", force: :cascade do |t|
     t.string "title"
+    t.boolean "passed"
     t.integer "course_id"
   end
 
@@ -25,6 +26,7 @@ ActiveRecord::Schema.define(version: 2019_02_02_205731) do
 
   create_table "lessons", force: :cascade do |t|
     t.string "title"
+    t.boolean "passed"
     t.integer "chapter_id"
   end
 
