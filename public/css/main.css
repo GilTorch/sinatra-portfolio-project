@@ -1,0 +1,13 @@
+main {
+    padding-left:auto;
+    padding-right:auto;
+    padding:2%;
+}
+
+.fa-times-circle{
+    color:red;
+}
+
+.fa-check-square{
+    color:green;
+}

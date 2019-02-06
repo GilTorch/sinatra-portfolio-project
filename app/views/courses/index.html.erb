@@ -2,11 +2,12 @@
 <h1> Curriculum </h1>
 <% @courses.each do |course| %>
     <li>
-    <%= course.title %> - <%= course.passed %>
+    <%= course.title %> - <%= (course.passed) ? "<span class='fas fa-check-square'></span>": "<i class='far fa-circle'></i>" %>
+    </li>
     <ul>
     <div>
     <% course.chapters.each do |chapter| %>
-        <li><a href="courses/<%=course.id%>/chapters/<%=chapter.id%>"><%= chapter.title %> - <%= chapter.passed%></li>
+        <li><a href="courses/<%=course.id%>/chapters/<%=chapter.id%>"><%= chapter.title %> -  <%= (chapter.passed) ? "<span class='fas fa-check-square'></span>": "<i class='far fa-circle'></i>" %></li>
     <% end %>  
     </div>
     </ul>

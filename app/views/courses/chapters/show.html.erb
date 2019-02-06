@@ -1,4 +1,5 @@
-<h1><%= @chapter.title %></1>
+<h1><%= @chapter.title %></h1>
+<span>Passed:<%= (@chapter.passed) ? "<span class='fas fa-check-square'></span>": "<i class='far fa-circle'></i>" %></li>
 <ul>
 <% @chapter.lessons.each do |lesson|%>
    <li><a href="/courses/<%=@course.id%>/chapters/<%=@chapter.id%>/lessons/<%=lesson.id%>"><%=lesson.title%></a></li>

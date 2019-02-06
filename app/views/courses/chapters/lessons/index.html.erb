@@ -1,5 +1,5 @@
 <ul>
 <% @lessons.each do |lesson| %>
-    <li><%=lesson.title%></li>
+    <li><%=lesson.title%><%= (lesson.passed) ? "<span class='fas fa-check-square'></span>": "<i class='far fa-circle'></i>" %></li>
 <% end %>
 </ul>

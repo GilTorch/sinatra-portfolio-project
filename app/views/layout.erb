@@ -8,9 +8,9 @@
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-  <link rel="manifest" href="site.webmanifest">
   <link rel="apple-touch-icon" href="icon.png">
   <!-- Place favicon.ico in the root directory -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
   <link rel="stylesheet" href="css/normalize.css">
   <link rel="stylesheet" href="css/main.css">
@@ -24,15 +24,25 @@
     <li class="nav-item">
         <a class="nav-link <%= (!current_page.nil? && current_page=='home') ? 'active' : ""  %>" href="/">Home</a>
     </li>
-    <li class="nav-item">
-        <a class="nav-link <%= (!current_page.nil? && current_page=='signup') ? 'active' : ""  %>" href="/users/new">Sign Up</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link  <%= (!current_page.nil? && current_page=='login') ? 'active' : ""  %>" href="/login">Log In</a>
-    </li>
-    </ul>
-
+    <% if is_logged_in? %>
+        <li class="nav-item">
+          <a class="nav-link" href="/users/<%= current_user.id %>"><%= current_user.username.capitalize %>'s Profile</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link <%= (!current_page.nil? && current_page=='curriculum') ? 'active' : ""  %> " href="/courses">Curriculum</a>
+        </li>
+    <% else %>
+      <li class="nav-item">
+          <a class="nav-link <%= (!current_page.nil? && current_page=='signup') ? 'active' : ""  %>" href="/users/new">Sign Up</a>
+      </li>
+      <li class="nav-item">
+          <a class="nav-link  <%= (!current_page.nil? && current_page=='login') ? 'active' : ""  %>" href="/login">Log In</a>
+      </li>
+    <% end %>
+    </ul> 
+   <main>
    <%= yield %>
+    </main>
   <script src="js/vendor/modernizr-3.6.0.min.js"></script>
   <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
   <script>window.jQuery || document.write('<script src="js/vendor/jquery-3.3.1.min.js"><\/script>')</script>
