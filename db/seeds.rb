@@ -1,0 +1,13 @@
+course1=Course.create(title:'HTML & CSS')
+course1chapter1=Chapter.create(title:"The selectors")
+course1chapter1.course_id=course1.id 
+course1chapter1lesson1=Lesson.create(title:"How to select by id",content:"To select by id you must...")
+course1chapter1lesson1.chapter_id=couse1chapter1.id
+course1chapter2=Chapter.create(title:"Learn about tags")
+course1chapter2.course_id=course1.id 
+course1chapter2lesson1=Lesson.create(title:"The <p> tag",content:"The p tag is for a block of text...")
+course1chapter2lesson1.chapter_id=couse1chapter2.id
+course1chapter3=Chapter.create(title:"The Head section")
+course1chapter3.course_id=course1.id 
+course1chapter3lesson1=Lesson.create(title:"How to select by id",content:"To select by id you must...")
+course1chapter3lesson1.chapter_id=couse1chapter3.id

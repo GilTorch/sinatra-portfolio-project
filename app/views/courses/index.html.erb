@@ -1,5 +1,8 @@
-<ul>
+
 <h1> Curriculum </h1>
+<% if !@courses.empty? %> 
+<%= puts "COURSE:#{@course}"%>
+<ul>
 <% @courses.each do |course| %>
     <li>
     <%= course.title %> - <%= course.passed %>
@@ -20,3 +23,6 @@
     </li>
    <% end %>
 </ul>
+<% else %>
+  <span>No course added yet.</span>
+<% end %>

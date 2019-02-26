@@ -1,6 +1,6 @@
 <% puts current_user.inspect %>
 <div class="center">
-<h1> Welcome, <%= current_user.username %></h1>
+<h1> Welcome, <%= @user.username %></h1>
 
 <form action="/logout" method="POST">
     <button class="btn btn-danger">Log Out</button>
