@@ -22,8 +22,9 @@
   <![endif]-->
     <ul class="nav nav-tabs">
     <li class="nav-item">
-        <a class="nav-link <%= (!current_page.nil? && current_page=='home') ? 'active' : ""  %>" href="/">Home</a>
+    <a class="nav-link <%= (!current_page.nil? && current_page=='home') ? 'active' : ""  %>" href="/">Home</a>
     </li>
+    <%= puts defined?(:current_page) %> 
     <li class="nav-item">
         <a class="nav-link <%= (!current_page.nil? && current_page=='signup') ? 'active' : ""  %>" href="/users/new">Sign Up</a>
     </li>

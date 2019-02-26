@@ -1,5 +1,5 @@
 <ul>
- <%@chapters.each do |chapter|%>
+ <%@course.chapters.each do |chapter|%>
     <li><a href="/courses/<%=@course.id%>/chapters/<%=chapter.id%>"><%=chapter.title%></a></li>
  <%end%>
 </ul>
