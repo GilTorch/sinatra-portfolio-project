@@ -11,7 +11,8 @@ class SessionsController < ApplicationController
             session[:user_id]=@user.id 
             redirect "/users/#{@user.id}" 
         else 
-            redirect "/users/new"
+            flash[:danger]="Username and password are incorrect. If you don't have an account please sign up."
+            redirect "/login"
         end
     end
 

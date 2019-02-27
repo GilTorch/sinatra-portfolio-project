@@ -1,2 +1,10 @@
-<h1><%= @lesson.title %></h1>
+<h1><%= @lesson.title %> <%= @passed ? '<i class="far fa-check-square"></i>' : "(Not passed yet)"  %></h1>
 <p><%= @lesson.content %></p>
+<form method="post" action="/courses/<%=@course.id%>/chapters/<%=@chapter.id%>/lessons/<%=@lesson.id%>">
+    <input type="hidden" value="patch" name="_method">
+    <input name="reset_lesson" class="btn btn-secondary" type="submit" value="Reset"/>
+</form>
+<form method="post" action="/courses/<%=@course.id%>/chapters/<%=@chapter.id%>/lessons/<%=@lesson.id%>">
+    <input type="hidden" value="patch" name="_method">
+    <input class="btn btn-success" type="submit" name="pass_lesson" value="Mark as Passed"/>
+</form>

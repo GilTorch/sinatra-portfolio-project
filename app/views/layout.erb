@@ -11,6 +11,7 @@
   <link rel="manifest" href="site.webmanifest">
   <link rel="apple-touch-icon" href="icon.png">
   <!-- Place favicon.ico in the root directory -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
   <link rel="stylesheet" href="css/normalize.css">
   <link rel="stylesheet" href="css/main.css">
@@ -22,16 +23,33 @@
   <![endif]-->
     <ul class="nav nav-tabs">
     <li class="nav-item">
-        <a class="nav-link <%= (!current_page.nil? && current_page=='home') ? 'active' : ""  %>" href="/">Home</a>
+    <a class="nav-link <%= (!current_page.nil? && current_page=='home') ? 'active' : ""  %>" href="/">Home</a>
     </li>
-    <li class="nav-item">
+    <% if is_logged_in? %>
+      <li class="nav-item">
+        <a class="nav-link <%= (!current_page.nil? && current_page=='users_show') ? 'active' : ""  %>" href="/users/<%=current_user.id%>"><%= current_user.username %>'s Profile</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link <%= (!current_page.nil? && current_page=='curriculum') ? 'active' : ""  %>" href="/courses">Curriculum</a>
+      </li>
+    <% else %>
+      <li class="nav-item">
         <a class="nav-link <%= (!current_page.nil? && current_page=='signup') ? 'active' : ""  %>" href="/users/new">Sign Up</a>
-    </li>
-    <li class="nav-item">
+      </li>
+      <li class="nav-item">
         <a class="nav-link  <%= (!current_page.nil? && current_page=='login') ? 'active' : ""  %>" href="/login">Log In</a>
-    </li>
+      </li>
+    <% end %>
     </ul>
-
+    <% flash.keys.each do |key| %> 
+      <% if key!="alert" %> 
+      <div data-alert class="alert alert-<%= key %>">
+          <%= flash[key] %>
+      </div>
+      <% end %>
+    <% end %>
+  
+    
    <%= yield %>
   <script src="js/vendor/modernizr-3.6.0.min.js"></script>
   <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
