@@ -1,28 +1,27 @@
 
 <h1> Curriculum </h1>
 <% if !@courses.empty? %> 
-<%= puts "COURSE:#{@course}"%>
-<ul>
-<% @courses.each do |course| %>
-    <li>
-    <%= course.title %> - <%= course.passed %>
-    <ul>
-    <div>
-    <% course.chapters.each do |chapter| %>
+<ol>
+    <% @courses.each do |course| %>
         <li>
-        <%= chapter.title %> - <%= chapter.passed%>
-        <ul> 
-            <% chapter.lessons.each do |lesson| %>
-                <a href="/lessons/<%=lesson.id%>"><%= lesson.title%> - <%= lesson.passed %></a>
-            <% end %>
-        </ul>
+            <%= course.title %> - <%= course.passed %>
+            <ol>
+                <% course.chapters.each do |chapter| %>
+                    <li>
+                        <div>
+                            <a href="/courses/<%=course.id%>/chapters/<%=chapter.id%>"><%= chapter.title %> - <%= chapter.passed%></a>
+                            <ol> 
+                                <% chapter.lessons.each do |lesson| %>
+                                    <li><a href="courses/<%=course.id%>/chapters/<%=chapter.id%>/lessons/<%=lesson.id%>"><%= lesson.title%> - <%= lesson.passed %></a></li>
+                                <% end %>
+                            </ol>
+                        <div>
+                    </li>
+                <% end %>  
+            </ol>
         </li>
-    <% end %>  
-    </div>
-    </ul>
-    </li>
-   <% end %>
-</ul>
+    <% end %>
+</ol>
 <% else %>
   <span>No course added yet.</span>
 <% end %>

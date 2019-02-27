@@ -13,6 +13,8 @@ gem 'sqlite3', '1.3.13'
 gem 'pry'
 gem 'bcrypt'
 gem 'rerun'
+gem 'rack-flash3',:require=>'rack/flash'
+
 
 group :test do
   gem 'rspec'

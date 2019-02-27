@@ -1,11 +1,14 @@
-class ApplicationController < Sinatra::Base     
 
-    configure do
+
+class ApplicationController < Sinatra::Base     
+    use Rack::Flash,:accessorize=>[:warning,:danger,:success,:primary,:secondary]
+    configure do    
         enable :sessions
         set :session_secret, 'super_secret_token'
         set :public_folder, 'public'
         set :views, 'app/views'
       end
+      use Rack::Flash
     
     helpers do 
         def current_user 

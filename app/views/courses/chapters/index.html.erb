@@ -1,5 +1,10 @@
+<h1><%= @course.title %> Chapters:</h1>
+<% if !@course.chapters.empty? %>
 <ul>
  <%@course.chapters.each do |chapter|%>
     <li><a href="/courses/<%=@course.id%>/chapters/<%=chapter.id%>"><%=chapter.title%></a></li>
  <%end%>
 </ul>
+<% else %> 
+   <span>No Chapters added for this course yet.</span>
+<% end %>

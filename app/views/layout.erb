@@ -24,15 +24,31 @@
     <li class="nav-item">
     <a class="nav-link <%= (!current_page.nil? && current_page=='home') ? 'active' : ""  %>" href="/">Home</a>
     </li>
-    <%= puts defined?(:current_page) %> 
-    <li class="nav-item">
+    <% if is_logged_in? %>
+      <li class="nav-item">
+        <a class="nav-link <%= (!current_page.nil? && current_page=='users_show') ? 'active' : ""  %>" href="/users/<%=current_user.id%>"><%= current_user.username %>'s Profile</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link <%= (!current_page.nil? && current_page=='curriculum') ? 'active' : ""  %>" href="/courses">Curriculum</a>
+      </li>
+    <% else %>
+      <li class="nav-item">
         <a class="nav-link <%= (!current_page.nil? && current_page=='signup') ? 'active' : ""  %>" href="/users/new">Sign Up</a>
-    </li>
-    <li class="nav-item">
+      </li>
+      <li class="nav-item">
         <a class="nav-link  <%= (!current_page.nil? && current_page=='login') ? 'active' : ""  %>" href="/login">Log In</a>
-    </li>
+      </li>
+    <% end %>
     </ul>
-
+    <% flash.keys.each do |key| %> 
+      <% if key!="alert" %> 
+      <div data-alert class="alert alert-<%= key %>">
+          <%= flash[key] %>
+      </div>
+      <% end %>
+    <% end %>
+  
+    
    <%= yield %>
   <script src="js/vendor/modernizr-3.6.0.min.js"></script>
   <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>

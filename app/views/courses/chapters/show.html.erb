@@ -1,6 +1,6 @@
 <h1><%= @chapter.title %></1>
 <ul>
 <% @chapter.lessons.each do |lesson|%>
-   <li><a href="/lessons/<%=lesson.id%>"><%=lesson.title%></a></li>
+   <li><a href="/courses/<%=@course.id%>/chapters/<%=@chapter.id%>/lessons/<%=lesson.id%>"><%=lesson.title%> - <%=lesson.passed%></a></li>
 <% end %>
 </ul>
