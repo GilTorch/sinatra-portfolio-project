@@ -5,6 +5,7 @@ class CoursesController < ApplicationController
     get "/courses" do
       if_not_logged_in_redirect 
         @courses=Course.all 
+        
         erb :"courses/index.html",:locals => {:current_page => "curriculum"}
     end
 
@@ -14,8 +15,6 @@ class CoursesController < ApplicationController
         if @course 
             erb :"courses/show.html",:locals => {:current_page=>"course_show"}
         else 
-            # FLASH MESSAGE : COURSE DOESN'T EXIST 
-            puts flash.inspect
             flash[:danger]="This course doesn't exist."
             redirect "/"
         end
@@ -58,6 +57,18 @@ class CoursesController < ApplicationController
         if @chapter && @course.chapters.include?(@chapter)
           @lesson=Lesson.find_by(id:params[:lessonid])
           if @lesson && @chapter.lessons.include?(@lesson) 
+
+            # checking if this particular user passed this lesson or not
+            if(current_user.lessons.nil?)
+              @passed=false 
+            else 
+              if(current_user.lessons.include?(@lesson))
+                @passed=true
+              else 
+                @passed=false
+              end
+            end
+
             erb:"courses/chapters/lessons/show.html",:locals=>{:current_page=>"courses_chapters_lessons_show"}
           else 
             flash[:danger]="This lesson doesn't exist or is not included in this chapter."
@@ -74,11 +85,45 @@ class CoursesController < ApplicationController
       end
     end
 
-    def if_not_logged_in_redirect 
-      if(!is_logged_in?)
-        flash[:danger]="Please login to be able to do this action."
-        redirect "/"
+    patch "/courses/:courseid/chapters/:chapterid/lessons/:lessonid" do 
+      if_not_logged_in_redirect
+      @course=Course.find_by(id:params[:courseid])
+      @chapter=Chapter.find_by(id:params[:chapterid])
+
+      if !@course 
+        flash[:danger]="This course doesn't exist."
       end
-    end
+
+      if !@chapter && !@course.chapters.include?(@chapter)
+        flash[:danger]="This chapter doesn't exist or is not included in this course."
+      end
+
+      @lesson=Lesson.find_by(id:params[:lessonid])
+      if @lesson 
+        userlesson=UserLesson.find_by(lesson_id:@lesson.id,user_id:current_user.id)
+
+        if !userlesson
+          userlesson=UserLesson.create(user_id:current_user.id,lesson_id:@lesson.id,passed:false)
+        end
+        
+        if(@params["pass_lesson"])
+          flash[:success]="You successfuly passed this lesson."
+          userlesson.passed=true 
+          userlesson.save
+        end
+
+        if(@params["reset_lesson"])
+          flash[:secondary]="You have reset this lesson."
+          userlesson.delete
+        end
+        redirect "/courses/#{@course.id}/chapters/#{@chapter.id}/lessons/#{@lesson.id}"
+      else 
+          flash[:danger]="The lesson id you passed doesn't exist."
+         redirect "/"
+      end
+  end 
+
+
+
 
 end

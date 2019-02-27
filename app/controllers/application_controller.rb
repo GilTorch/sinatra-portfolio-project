@@ -28,4 +28,11 @@ class ApplicationController < Sinatra::Base
     get "/" do 
         erb :"home.html", :locals => {:current_page => "home"}
     end
+
+    def if_not_logged_in_redirect 
+        if(!is_logged_in?)
+          flash[:danger]="Please login to be able to do this action."
+          redirect "/"
+        end
+    end
 end

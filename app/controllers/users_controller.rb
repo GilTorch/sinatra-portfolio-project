@@ -17,6 +17,7 @@ class UsersController < ApplicationController
     post "/users" do 
         @user=User.new(username:@params[:username],password:@params[:password],password_confirmation:@params[:password_confirmation])
         if @user.save
+            flash[:success]="Account has been created successfully. You are automatically logged in."
             session[:user_id]=@user.id
             redirect "/users/#{@user.id}"
         else 
