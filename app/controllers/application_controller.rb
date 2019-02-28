@@ -35,4 +35,13 @@ class ApplicationController < Sinatra::Base
           redirect "/"
         end
     end
+
+    def if_is_not_admin_redirect 
+        if !is_logged_in? 
+            redirect "/"
+        end
+        if is_logged_in? && current_user.role.role_label!="admin"
+            redirect "/"
+        end
+     end
 end

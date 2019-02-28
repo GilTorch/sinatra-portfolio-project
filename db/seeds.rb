@@ -14,3 +14,10 @@ course1chapter3=Chapter.create(title:"The Head section")
 course1.chapters << course1chapter3 
 course1chapter3lesson1=Lesson.create(title:"How to select by id",content:"To select by id you must...")
 course1chapter3.lessons << course1chapter3lesson1
+
+
+role1=Role.create(label:"admin")
+role2=Role.create(label:"trainer")
+role3=Role.create(label:"trainee")
+theboss=User.create(username:"boss",password:"1234",password_confirmation:"1234")
+theboss.roles << role1

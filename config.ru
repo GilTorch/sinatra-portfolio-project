@@ -5,5 +5,6 @@ use Rack::MethodOverride
 
 use SessionsController
 use UsersController
+use TheAdminsController
 use CoursesController
 run ApplicationController

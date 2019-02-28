@@ -8,6 +8,9 @@ class SessionsController < ApplicationController
         @user=User.find_by(username:@params[:username])
 
         if @user && @user.authenticate(@params[:password])
+            if @user.role.role_label="admin"
+                redirect "/admin"
+            end
             session[:user_id]=@user.id 
             redirect "/users/#{@user.id}" 
         else 
