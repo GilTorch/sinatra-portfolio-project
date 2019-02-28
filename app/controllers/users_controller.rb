@@ -18,7 +18,7 @@ class UsersController < ApplicationController
         @user=User.new(username:@params[:username],password:@params[:password],password_confirmation:@params[:password_confirmation])
         if @user.save
             if @params[:admin]
-                @user.build_role(role_label:"admin")
+                @user.roles << Role.find_by(label:"admin")
                 session[:user_id]=@user.id
                 redirect "/admin"
             end

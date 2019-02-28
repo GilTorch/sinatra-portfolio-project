@@ -37,10 +37,8 @@ class ApplicationController < Sinatra::Base
     end
 
     def if_is_not_admin_redirect 
-        if !is_logged_in? 
-            redirect "/"
-        end
-        if is_logged_in? && current_user.role.role_label!="admin"
+        admin_role=Role.find_by(label:"admin")
+        if !is_logged_in? || !current_user.roles.include?(admin_role)
             redirect "/"
         end
      end

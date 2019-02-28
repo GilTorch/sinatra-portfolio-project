@@ -8,10 +8,12 @@ class SessionsController < ApplicationController
         @user=User.find_by(username:@params[:username])
 
         if @user && @user.authenticate(@params[:password])
-            if @user.role.role_label="admin"
+            session[:user_id]=@user.id 
+            admin_role=Role.find_by(label:"admin")
+            if @user.roles.include?(admin_role)
                 redirect "/admin"
             end
-            session[:user_id]=@user.id 
+
             redirect "/users/#{@user.id}" 
         else 
             flash[:danger]="Username and password are incorrect. If you don't have an account please sign up."
