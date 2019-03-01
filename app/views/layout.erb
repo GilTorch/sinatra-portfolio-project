@@ -27,10 +27,15 @@
     </li>
     <% if is_logged_in? %>
       <li class="nav-item">
+        <a class="nav-link <%= (!current_page.nil? && current_page=='curriculum') ? 'active' : ""  %>" href="/courses">Curriculum</a>
+      </li>
+      <li class="nav-item">
         <a class="nav-link <%= (!current_page.nil? && current_page=='users_show') ? 'active' : ""  %>" href="/users/<%=current_user.id%>"><%= current_user.username %>'s Profile</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link <%= (!current_page.nil? && current_page=='curriculum') ? 'active' : ""  %>" href="/courses">Curriculum</a>
+        <form action="/logout" method="POST">
+            <button class="nav-link btn btn-danger">Log Out</button>
+        </form>
       </li>
     <% else %>
       <li class="nav-item">

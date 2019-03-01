@@ -7,6 +7,7 @@ class UsersController < ApplicationController
     get "/users/:id" do 
         @user=User.find_by(id:@params[:id])
         if @user 
+            admin_role=
           erb :"users/show.html",:locals => {:current_page => ''}
         else
             #FLASH MESSAGE:"THIS USER DOESN'T EXIST" 
