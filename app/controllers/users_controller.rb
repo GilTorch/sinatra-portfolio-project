@@ -16,7 +16,7 @@ class UsersController < ApplicationController
     end
 
     post "/users" do 
-        @user=User.new(username:@params[:username],password:@params[:password],password_confirmation:@params[:password_confirmation])
+        @user=User.new(username:@params[:username],email:@params[:email],password:@params[:password],password_confirmation:@params[:password_confirmation])
         if @user.save
             if @params[:admin]
                 @user.roles << Role.find_by(label:"admin")
