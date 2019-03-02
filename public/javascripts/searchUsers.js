@@ -46,9 +46,17 @@ function searchUser(str) {
                     //data-id="<%= user.id %>" data-username="<%= user.username %>" data-email="<%= user.email%>" data-roles="<%= user.roles.collect{|role| role.label}.join(",") %>" onClick="fillModal(this,'view')" data-toggle="modal" data-target="#exampleModalCenter"
 
                     let editLink=document.createElement("a")
-                    editLink.href=`admin/users/${user.id}/edit`
+                    editLink.href=`#`
                     editLink.innerText="Edit"
                     editLink.className="btn btn-secondary"
+
+                    editLink.setAttribute("data-username",`${user.username}`);
+                    editLink.setAttribute("data-id",`${user.id}`);
+                    editLink.setAttribute("data-email",`${user.email}`);
+                    editLink.setAttribute("data-roles",`${user.roles}`)
+                    editLink.setAttribute("onclick","fillModal(this,'edit')");
+                    editLink.setAttribute("data-toggle","modal");
+                    editLink.setAttribute("data-target","#exampleModalCenter");
 
                     let deleteLink=document.createElement("a")
                     deleteLink.href=`admin/users/${user.id}/delete`
