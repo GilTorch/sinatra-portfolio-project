@@ -66,8 +66,8 @@ function searchUser(str) {
                     td1.innerHTML=user.username; 
                     td2.innerHTML=user.email; 
                     td3.innerHTML=user.roles;
-                    td4.appendChild(editLink)
-                    td5.appendChild(viewLink)
+                    td4.appendChild(viewLink)
+                    td5.appendChild(editLink)
                     td6.appendChild(deleteLink)
                     td7.innerHTML=user.id;
                     

@@ -18,8 +18,8 @@
                 <td><%= user.email || "No Email" %></td>
                 <td><%= user.roles.collect{|role| role.label}.join(",") %></td>
                 <td>
-                    <a class="btn btn-success" data-id="<%= user.id %>" data-username="<%= user.username %>" data-email="<%= user.email%>" data-roles="<%= user.roles.collect{|role| role.label}.join(",") %>" onClick="fillModal(this,'view')" data-toggle="modal" data-target="#exampleModalCenter" href="#">View</a>,
-                    <a class="btn btn-secondary" data-id="<%= user.id %>" data-username="<%= user.username %>" data-email="<%= user.email%>" data-roles="<%= user.roles.collect{|role| role.label}.join(",") %>" onClick="fillModal(this,'edit')" data-toggle="modal" data-target="#exampleModalCenter" href="#">Edit</a>,
+                    <a class="btn btn-success" data-id="<%= user.id %>" data-username="<%= user.username %>" data-email="<%= user.email%>" data-roles="<%= user.roles.collect{|role| role.label}.join(",") %>" onClick="fillModal(this,'view')" data-toggle="modal" data-target="#exampleModalCenter" href="#">View</a>
+                    <a class="btn btn-secondary" data-id="<%= user.id %>" data-username="<%= user.username %>" data-email="<%= user.email%>" data-roles="<%= user.roles.collect{|role| role.label}.join(",") %>" onClick="fillModal(this,'edit')" data-toggle="modal" data-target="#exampleModalCenter" href="#">Edit</a>
                     <form style="display:inline" method="DELETE">
                         <button class="btn btn-danger" type="submit">Delete</button>
                     </form>
