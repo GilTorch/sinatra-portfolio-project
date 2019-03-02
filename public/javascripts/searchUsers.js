@@ -10,8 +10,6 @@ function searchUser(str) {
         allRows[0].parentNode.removeChild( allRows[0] );
     }
    
-    
-  
         xmlhttp.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
                 console.log("MEN NI WI MANMAN:"+this.responseText);
@@ -68,16 +66,6 @@ function searchUser(str) {
                 }))
 
                 table.className="table table-striped table-sm"
-               
-                // let results=this.responseText.split(", ")
-                //  results.forEach(function(element){
-                //    let tr=document.createElement('tr')
-                //    tr.innerHTML=element 
-                //    //let tbody=document.getElementById("table_tbody");
-                //    table.append(tr);
-
-                //    //table.append(tr) 
-                // })
             }
         };
 
