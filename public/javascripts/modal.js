@@ -14,11 +14,17 @@ function fillModal(element,state){
         document.getElementById("modalSubmit").style.display="none";
         document.getElementById("modalSave").style.display="none";
 
-        modalUsername.value=userUsername; 
-        modalEmail.value=userEmail;
-        modalRoles.value=userRoles;
+        
 
+    }else if(state==="edit"){
+        document.getElementById("modalSubmit").style.display="inline-block";
+        document.getElementById("modalSave").style.display="inline-block";
     }
+
+    modalUsername.value=userUsername; 
+    modalEmail.value=userEmail;
+    modalRoles.value=userRoles;
+    
     console.log(userId,userUsername,userEmail,userRoles);
 
 

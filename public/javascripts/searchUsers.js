@@ -17,6 +17,8 @@ function searchUser(str) {
                 let table=document.getElementById("searchResults")
                 console.log(table)
                 
+                
+                
 
                 arrayOfResults.forEach((function(user){
                     let tr=document.createElement("tr");
@@ -27,12 +29,21 @@ function searchUser(str) {
                     let td4=document.createElement("td");
                     let td5=document.createElement("td");
                     let td6=document.createElement("td");
-                     
+                    let td7=document.createElement("td");
                     
                     let viewLink=document.createElement("a")
-                    viewLink.href=`admin/users/${user.id}`
+                    viewLink.href=`#`
                     viewLink.innerText="View"
-                    viewLink.className="btn btn-success"
+                    viewLink.className="btn btn-success";
+                    viewLink.setAttribute("data-username",`${user.username}`);
+                    viewLink.setAttribute("data-id",`${user.id}`);
+                    viewLink.setAttribute("data-email",`${user.email}`);
+                    viewLink.setAttribute("data-roles",`${user.roles}`)
+                    viewLink.setAttribute("onclick","fillModal(this,'view')");
+                    viewLink.setAttribute("data-toggle","modal");
+                    viewLink.setAttribute("data-target","#exampleModalCenter");
+                    
+                    //data-id="<%= user.id %>" data-username="<%= user.username %>" data-email="<%= user.email%>" data-roles="<%= user.roles.collect{|role| role.label}.join(",") %>" onClick="fillModal(this,'view')" data-toggle="modal" data-target="#exampleModalCenter"
 
                     let editLink=document.createElement("a")
                     editLink.href=`admin/users/${user.id}/edit`
@@ -41,7 +52,7 @@ function searchUser(str) {
 
                     let deleteLink=document.createElement("a")
                     deleteLink.href=`admin/users/${user.id}/delete`
-                    deleteLink.innerText="Edit"
+                    deleteLink.innerText="Delete"
                     deleteLink.className="btn btn-danger"
 
                     td1.innerHTML=user.username; 
@@ -50,8 +61,9 @@ function searchUser(str) {
                     td4.appendChild(editLink)
                     td5.appendChild(viewLink)
                     td6.appendChild(deleteLink)
+                    td7.innerHTML=user.id;
                     
-                    
+                    tr.appendChild(td7);
                     tr.appendChild(td1);
                     tr.appendChild(td2);
                     tr.appendChild(td3);
