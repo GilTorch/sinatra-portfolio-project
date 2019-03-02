@@ -3,6 +3,7 @@
         <table id="searchResults" class="table table-striped table-sm">
           <thead>
             <tr>
+              <th>ID</th>
               <th>Username</th>
               <th>Email</th>
               <th>Roles</th>
@@ -12,6 +13,7 @@
           <tbody className="tbody">
           <% @users.each do |user| %>
             <tr class="tr">
+                <td><%= user.id %></td>
                 <td><%= user.username %></td>
                 <td><%= user.email || "No Email" %></td>
                 <td><%= user.roles.collect{|role| role.label}.join(",") %></td>

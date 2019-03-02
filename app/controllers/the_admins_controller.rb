@@ -6,12 +6,19 @@ class TheAdminsController < ApplicationController
     end
 
     get "/admin/search/users/:username" do 
-        users=User.where("username like ?","%#{@params[:username]}%")
-
+        if @params[:username]!="all"
+            @users=User.where("username like ?","%#{@params[:username]}%")
+            # return "IT'S ALL"
+        else 
+            @users=User.all
+            # return "IT'S NOT ALL"
+        end
+          
+        
         result=[]
 
-        users.each_with_index do |user,index| 
-           result.push({username:user.username,email:user.email,roles:user.roles.collect{|role| role.label}.join(",")})
+        @users.each_with_index do |user,index| 
+           result.push({id:user.id,username:user.username,email:user.email,roles:user.roles.collect{|role| role.label}.join(",")})
         end
         
         jsonResult=result.to_json
