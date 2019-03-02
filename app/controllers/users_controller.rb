@@ -15,6 +15,7 @@ class UsersController < ApplicationController
         end
     end
 
+   
     post "/users" do 
         @user=User.new(username:@params[:username],email:@params[:email],password:@params[:password],password_confirmation:@params[:password_confirmation])
         if @user.save

@@ -27,6 +27,27 @@ class TheAdminsController < ApplicationController
         return "#{jsonResult}"
     end
 
+    patch "/admin/users/:id" do 
+        
+        
+        user=User.find_by(params[:id])
+        return "#{user.username}"
+        data=JSON.parse(request.body.read)
+        user.username=data["username"]
+        user.email=data["email"]
+        user.roles=[]
+        roles=data["roles"].split(",")
+        roles.each do |role| 
+            role=Role.find_by(label:role)
+            user.roles << role
+        end
+        course = user.roles.find(course_id)
+        user.courses.delete(course) if course 
+        user.save
+        redirect "/admin/users"
+    end
+
+
     get "/admin/users/:id" do
         if_is_not_admin_redirect 
         @user=User.find(params[:id])
