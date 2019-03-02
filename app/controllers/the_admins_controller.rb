@@ -5,6 +5,21 @@ class TheAdminsController < ApplicationController
         erb :"admin/users/index.html",:layout => :admin_layout
     end
 
+    get "/admin/search/users/:username" do 
+        users=User.where("username like ?","%#{@params[:username]}%")
+
+        result=[]
+
+        users.each_with_index do |user,index| 
+           result.push({username:user.username,email:user.email,roles:user.roles.collect{|role| role.label}.join(",")})
+        end
+        
+        jsonResult=result.to_json
+     
+     
+        return "#{jsonResult}"
+    end
+
     get "/admin/users/:id" do
         if_is_not_admin_redirect 
         @user=User.find(params[:id])
