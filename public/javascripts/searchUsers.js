@@ -59,9 +59,17 @@ function searchUser(str) {
                     editLink.setAttribute("data-target","#exampleModalCenter");
 
                     let deleteLink=document.createElement("a")
-                    deleteLink.href=`admin/users/${user.id}/delete`
+                    deleteLink.href=`#`
                     deleteLink.innerText="Delete"
                     deleteLink.className="btn btn-danger"
+
+                    deleteLink.setAttribute("data-username",`${user.username}`);
+                    deleteLink.setAttribute("data-id",`${user.id}`);
+                    deleteLink.setAttribute("data-email",`${user.email}`);
+                    deleteLink.setAttribute("data-roles",`${user.roles}`)
+                    deleteLink.setAttribute("onclick","fillModal(this,'delete')");
+                    deleteLink.setAttribute("data-toggle","modal");
+                    deleteLink.setAttribute("data-target","#exampleModalCenter");
 
                     td1.innerHTML=user.username; 
                     td2.innerHTML=user.email; 

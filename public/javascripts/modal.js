@@ -36,9 +36,23 @@ function fillModal(element,state){
         modalUsername.readOnly=false;
         modalEmail.readOnly=false;
         modalRoles.readOnly=false;
+        modalSubmit.value="Edit"
+        modalSubmit.className="btn btn-primary"
         modalSubmit.style.display="inline-block";
         modalSave.style.display="none";
         
+    }else if(state==="delete"){
+        document.getElementById("modalTitle").innerHTML="Delete This User?"
+        document.getElementById("modalForm").setAttribute("method",`POST`)
+        document.getElementById("modalForm").setAttribute("action",`/admin/users/${userId}`)
+        document.getElementById("modalMethod").value="delete"
+        modalSubmit.className="btn btn-danger"
+        modalUsername.readOnly=true;
+        modalEmail.readOnly=true;
+        modalRoles.readOnly=true;
+        modalSubmit.value="Confirm"
+        modalSubmit.style.display="inline-block";
+        modalSave.style.display="none";
     }
 
  

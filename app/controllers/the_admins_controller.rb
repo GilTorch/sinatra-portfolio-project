@@ -45,6 +45,11 @@ class TheAdminsController < ApplicationController
         redirect "/admin"
     end
 
+    delete "/admin/users/:id" do 
+        if_is_not_admin_redirect 
+        User.find(params[:id]).destroy
+        redirect "/admin"
+    end
 
     # get "/admin/users/:id" do
     #     if_is_not_admin_redirect 
