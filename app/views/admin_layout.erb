@@ -110,7 +110,8 @@
         </button>
       </div>
       <div class="modal-body">
-        <form id="modalForm" method="POST" action="/users">
+        <form id="modalForm">
+          <input type="hidden" name="_method" value="PATCH"/>
           <div class="form-group">
             <input type="hidden" name="id" id="modalUserId">
           </div>
@@ -126,7 +127,8 @@
             <label for="roles">Current Roles:</label>
             <input class="form-control" id="modalRoles" type="text" name="roles">
           </div>
-          <button type="hidden" id="modalSubmit" type="submit" class="btn btn-primary">Submit</button>
+        
+          <input id="modalSubmit" type="submit" class="btn btn-primary" value="Submit"/>
         </form>
       </div>
       <div class="modal-footer">

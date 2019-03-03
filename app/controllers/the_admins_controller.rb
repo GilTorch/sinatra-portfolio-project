@@ -1,4 +1,5 @@
 class TheAdminsController < ApplicationController 
+
     get "/admin" do 
         if_is_not_admin_redirect
         @users=User.all 
@@ -29,35 +30,32 @@ class TheAdminsController < ApplicationController
 
     patch "/admin/users/:id" do 
         
-        
         user=User.find_by(params[:id])
-        return "#{user.username}"
-        data=JSON.parse(request.body.read)
-        user.username=data["username"]
-        user.email=data["email"]
-        user.roles=[]
-        roles=data["roles"].split(",")
-        roles.each do |role| 
-            role=Role.find_by(label:role)
-            user.roles << role
+        if user 
+            roles=@params[:roles].split(",")
+            roles=roles.collect do |role| 
+                Role.find_by(label:role)
+            end
+           User.update(params[:id],:username=>@params[:username],:email=>@params[:email],:roles=>roles)
+            
+            # return "#{user.update!}"
+        else 
+            flash[:danger]="No User exists for that id."
         end
-        course = user.roles.find(course_id)
-        user.courses.delete(course) if course 
-        user.save
-        redirect "/admin/users"
+        redirect "/admin"
     end
 
 
-    get "/admin/users/:id" do
-        if_is_not_admin_redirect 
-        @user=User.find(params[:id])
-        if @user 
-         erb :"admin/users/show.html",:locals=>{:current_page=>"admin_user_show"}
-        else
-          flash[:danger]="No User exist for that id."
-          redirect "/"
-        end
-    end
+    # get "/admin/users/:id" do
+    #     if_is_not_admin_redirect 
+    #     @user=User.find(params[:id])
+    #     if @user 
+    #      erb :"admin/users/show.html",:locals=>{:current_page=>"admin_user_show"}
+    #     else
+    #       flash[:danger]="No User exist for that id."
+    #       redirect "/"
+    #     end
+    # end
 
     get "/admin/users/:id/edit" do
         if_is_not_admin_redirect 

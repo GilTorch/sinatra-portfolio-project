@@ -12,7 +12,11 @@ function fillModal(element,state){
     let modalRoles=document.getElementById("modalRoles");
     let modalSubmit=document.getElementById("modalSubmit");
     let modalSave=document.getElementById("modalSave");
- 
+    
+    modalUserId.value=userId;
+    modalUsername.value=userUsername; 
+    modalEmail.value=userEmail;
+    modalRoles.value=userRoles;
         
     if(state==="view"){
         modalSubmit.style.display="none";
@@ -27,18 +31,17 @@ function fillModal(element,state){
     }else if(state==="edit"){
 
         document.getElementById("modalTitle").innerHTML="Edit The User"
+        document.getElementById("modalForm").setAttribute("method",`POST`)
+        document.getElementById("modalForm").setAttribute("action",`/admin/users/${userId}`)
         modalUsername.readOnly=false;
         modalEmail.readOnly=false;
         modalRoles.readOnly=false;
-        modalSubmit.style.display="none";
-        modalSave.style.display="inline-block";
+        modalSubmit.style.display="inline-block";
+        modalSave.style.display="none";
         
     }
 
-    modalUserId.value=userId;
-    modalUsername.value=userUsername; 
-    modalEmail.value=userEmail;
-    modalRoles.value=userRoles;
+ 
 
     console.log(userId,userUsername,userEmail,userRoles);
 
