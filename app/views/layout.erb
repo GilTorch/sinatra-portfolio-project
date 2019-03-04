@@ -32,6 +32,11 @@
       <li class="nav-item">
         <a class="nav-link <%= (!current_page.nil? && current_page=='users_show') ? 'active' : ""  %>" href="/users/<%=current_user.id%>"><%= current_user.username %>'s Profile</a>
       </li>
+      <% if is_an_admin? %>
+      <li class="nav-item">
+        <a class="nav-link btn btn-success" href="/admin">Go To Dashboard</a>
+      </li>
+      <% end %>
       <li class="nav-item">
         <form action="/logout" method="POST">
             <button class="nav-link btn btn-danger">Log Out</button>

@@ -5,8 +5,8 @@ class ApplicationController < Sinatra::Base
     configure do    
         enable :sessions
         set :session_secret, 'super_secret_token'
-        set :public_folder, 'public'
         set :views, 'app/views'
+        set :public_folder, Proc.new { File.join("./", "public") }
       end
       use Rack::Flash
     
@@ -26,6 +26,7 @@ class ApplicationController < Sinatra::Base
 
 
     get "/" do 
+        
         erb :"home.html", :locals => {:current_page => "home"}
     end
 
@@ -36,9 +37,17 @@ class ApplicationController < Sinatra::Base
         end
     end
 
-    def if_is_not_admin_redirect 
+    def is_an_admin? 
         admin_role=Role.find_by(label:"admin")
         if !is_logged_in? || !current_user.roles.include?(admin_role)
+            return false
+        else 
+            return true 
+        end
+    end
+
+    def if_is_not_admin_redirect 
+        if !is_an_admin?
             redirect "/"
         end
      end

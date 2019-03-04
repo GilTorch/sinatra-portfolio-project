@@ -1,28 +1,33 @@
+<div style="margin-top:40px">
+<h1>Users</h1>
+<input placeholder="Search by username" onKeyUp="searchUsers(this.value)" class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search">
+<a href="#" on class="add-button" onClick="fillModal(this,'add')" data-toggle="modal" data-target="#exampleModalCenter">+</a>
 <div class="table-responsive">
-        <table class="table table-striped table-sm">
+        <table id="searchResults" class="table table-striped table-sm">
           <thead>
             <tr>
+              <th>ID</th>
               <th>Username</th>
               <th>Email</th>
               <th>Roles</th>
               <th>Action</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody className="tbody">
           <% @users.each do |user| %>
-            <tr>
+            <tr class="tr">
+                <td><%= user.id %></td>
                 <td><%= user.username %></td>
-                <td><%= user.email %></td>
+                <td><%= user.email || "No Email" %></td>
                 <td><%= user.roles.collect{|role| role.label}.join(",") %></td>
                 <td>
-                    <a class="btn btn-success" href="admin/users/<%=user.id%>">View</a>,
-                    <a class="btn btn-secondary" href="admin/users/<%=user.id%>/edit">Edit</a>,
-                    <form style="display:inline" method="DELETE">
-                        <button class="btn btn-danger" type="submit">Delete</button>
-                    </form>
+                    <a class="btn btn-success" data-id="<%= user.id %>" data-username="<%= user.username %>" data-email="<%= user.email%>" data-roles="<%= user.roles.collect{|role| role.label}.join(",") %>" onClick="fillModal(this,'view')" data-toggle="modal" data-target="#exampleModalCenter" href="#">View</a>
+                    <a class="btn btn-secondary" data-id="<%= user.id %>" data-username="<%= user.username %>" data-email="<%= user.email%>" data-roles="<%= user.roles.collect{|role| role.label}.join(",") %>" onClick="fillModal(this,'edit')" data-toggle="modal" data-target="#exampleModalCenter" href="#">Edit</a>
+                    <button class="btn btn-danger" data-id="<%= user.id %>" data-username="<%= user.username %>" data-email="<%= user.email%>" data-roles="<%= user.roles.collect{|role| role.label}.join(",") %>" onClick="fillModal(this,'delete')" data-toggle="modal" data-target="#exampleModalCenter">Delete</button>
                 </td>
             </tr>
           <% end %>
           </tbody>
     </table>
+</div>
 </div>
