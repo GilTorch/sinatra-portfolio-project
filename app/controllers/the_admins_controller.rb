@@ -197,6 +197,69 @@ class TheAdminsController < ApplicationController
         redirect "/admin/chapters"
     end
 
+    # lessons
+    
+    get "/admin/lessons" do 
+        if_is_not_admin_redirect 
+        @lessons=Lesson.all
+        erb :"admin/lessons/index.html",:layout => :admin_layout
+    end
 
+    patch "/admin/courses/:courseid/chapters/:chapterid/lessons/:lessonid" do 
+        if_is_not_admin_redirect 
+         
+        course=Course.find_by(id:params[:courseid])
+        if course 
+           chapter=Chapter.find_by(params[:chapter_id])
+           if chapter 
+            lesson=Lesson.find_by(params[:lesson_id])
+            if lesson
+                lesson.title=@params[:title]
+                course_passed=Course.find_or_create_by(title:@params[:course])
+                chapter_passed=Chapter.find_or_create_by(title:@params[:chapter])
+                chapter_passed.course=course_passed
+                chapter.save
+                lesson.chapter=chapter_passed 
+                if lesson.save 
+                    flash[:success]="Lesson was successfully modified."
+                else 
+                    flash[:success]="There was a mistake while modifying your lesson"
+                end
+            else 
+
+            end
+           else 
+            flash[:danger]="No chapter with that id was found."
+           end
+        else 
+            flash[:danger]="No course with that id was found."
+        end
+        redirect "/admin/lessons"
+    end
+
+    delete "/admin/lessons/:id" do 
+        lesson=Lesson.find_by(id:params[:id])
+        if lesson 
+            lesson.destroy 
+        else 
+            flash[:danger]="No Lesson exists for that id"
+        end
+        redirect "/admin/lessons"
+    end
+
+    post "/admin/lessons" do 
+        lesson=Lesson.new(title:@params[:title])
+        chapter=Chapter.find_or_create_by(title:@params[:chapter])
+        course=Course.find_or_create_by(title:@params[:course])
+        chapter.course=course 
+        chapter.save 
+        lesson.chapter=chapter 
+        if lesson.save
+            flash[:success]="Lesson was successfully created"
+        else
+            flash[:danger]="An error occured while creating the course" 
+        end   
+        redirect "/admin/lessons"
+    end
 end
 
