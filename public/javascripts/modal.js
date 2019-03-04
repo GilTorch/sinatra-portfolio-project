@@ -41,7 +41,7 @@ function fillModal(element,state){
         modalSubmit.style.display="inline-block";
         modalSave.style.display="none";
         
-    }else if(state="add"){
+    }else if(state==="add"){
         document.getElementById("modalTitle").innerHTML="Add A New User"
         document.getElementById("modalForm").setAttribute("method",`POST`)
         document.getElementById("modalForm").setAttribute("action",`/admin/users`)

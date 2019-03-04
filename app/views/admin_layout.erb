@@ -84,18 +84,13 @@
               Lessons
             </a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/admin/roles">
-              <span data-feather="layers"></span>
-              Roles
-            </a>
-          </li>
         </ul>
        </div>
       </div>
     </nav>
 
     <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+    <div style="margin-top:50px">
     <% flash.keys.each do |key| %> 
       <% if key!="alert" %> 
       <div data-alert class="alert alert-<%= key %>">
@@ -103,6 +98,7 @@
       </div>
       <% end %>
     <% end %>
+    </div>
       <%= yield %>
     </main>
     <!-- Button trigger modal -->
@@ -157,6 +153,8 @@
 </body>
 </html>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-<script src="javascripts/searchUsers.js"></script>
-<script src="javascripts/searchCourses.js"></script>
+
+<% if @js %>
+<script src="javascripts/<%=@js%>.js"></script>
+<% end %> 
 <script src="javascripts/modal.js"></script>
