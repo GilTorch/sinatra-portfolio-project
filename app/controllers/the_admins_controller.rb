@@ -136,6 +136,67 @@ class TheAdminsController < ApplicationController
         redirect "/admin/courses"
     end
 
+    # chapters ...
+
+    get "/admin/chapters" do 
+        if_is_not_admin_redirect 
+        @chapters=Chapter.all
+        erb :"admin/chapters/index.html",:layout => :admin_layout
+    end
+
+    patch "/admin/courses/:courseid/chapters/:chapterid" do 
+        if_is_not_admin_redirect 
+         
+        course=Course.find_by(id:params[:courseid])
+        if course 
+           chapter=Chapter.find_by(params[:chapter_id])
+           if chapter 
+            title=@params[:title]
+            chapter.title=title 
+            course_passed=Course.find_or_create_by(title:@params[:course])
+            chapter.course=course_passed 
+            if !chapter.save 
+                flash[:danger]="There was a problem while editing your chapter"
+            end
+           else 
+            flash[:danger]="No Chapter exists for that id"
+           end
+        else 
+            flash[:danger]="No Course exists for that id."
+        end
+        redirect "/admin/chapters"
+    end
+
+    post "/admin/chapters" do 
+        chapter=Chapter.new(title:@params[:title])
+        if chapter 
+            course=Course.find_or_create_by(title:@params[:course])
+            if course 
+                chapter.course=course 
+                if chapter.save
+                    flash[:sucess]="Successfully created the Chapter"
+                else 
+                    flash[:danger]="An error happened while trying to save the chapter..."
+                end
+            else 
+              flash[:danger]="Something went wrong while searching the course"
+            end
+        else 
+            flash[:danger]="Something went wrong while creating the chapter..."
+        end
+        redirect "/admin/chapters"
+    end
+ 
+    delete "/admin/chapters/:id" do 
+        chapter=Chapter.find_by(id:params[:id])
+        if chapter 
+            chapter.destroy 
+        else 
+            flash[:danger]="No Chapter exists for that id"
+        end
+        redirect "/admin/chapters"
+    end
+
 
 end
 
