@@ -1,3 +1,23 @@
 .tr:nth-child(odd) {
     background-color:#eee !important;
 }
+
+.add-button{
+    background-color:red;
+    border-radius:50%;
+    display:flex;
+    justify-content: center;
+    align-items:center;
+    color:white;
+    width:70px;
+    height:70px;
+    position:fixed;
+    right:20px;
+    bottom:20px;
+    font-size:40px;
+}
+
+.add-button:hover,.add-button:active,.add-button:visited {
+    color:white;
+    text-decoration:none;
+}

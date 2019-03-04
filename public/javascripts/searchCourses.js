@@ -1,9 +1,6 @@
-$(document).ready(function(){
-    
-})
-
-
-function searchUsers(str) {
+alert("searchCourses File is called");
+function searchCourse(str) {
+    alert("searching courses")
     let allRows=document.getElementsByClassName("tr")
     var xmlhttp = new XMLHttpRequest();
     while( allRows[0] ) {
@@ -20,7 +17,7 @@ function searchUsers(str) {
                 
                 
 
-                arrayOfResults.forEach((function(user){
+                arrayOfResults.forEach((function(course){
                     let tr=document.createElement("tr");
                     tr.className="tr";
                     let td1=document.createElement("td");
@@ -29,16 +26,13 @@ function searchUsers(str) {
                     let td4=document.createElement("td");
                     let td5=document.createElement("td");
                     let td6=document.createElement("td");
-                    let td7=document.createElement("td");
                     
                     let viewLink=document.createElement("a")
                     viewLink.href=`#`
                     viewLink.innerText="View"
                     viewLink.className="btn btn-success";
-                    viewLink.setAttribute("data-username",`${user.username}`);
+                    viewLink.setAttribute("data-title",`${course.title}`);
                     viewLink.setAttribute("data-id",`${user.id}`);
-                    viewLink.setAttribute("data-email",`${user.email}`);
-                    viewLink.setAttribute("data-roles",`${user.roles}`)
                     viewLink.setAttribute("onclick","fillModal(this,'view')");
                     viewLink.setAttribute("data-toggle","modal");
                     viewLink.setAttribute("data-target","#exampleModalCenter");
@@ -50,10 +44,8 @@ function searchUsers(str) {
                     editLink.innerText="Edit"
                     editLink.className="btn btn-secondary"
 
-                    editLink.setAttribute("data-username",`${user.username}`);
-                    editLink.setAttribute("data-id",`${user.id}`);
-                    editLink.setAttribute("data-email",`${user.email}`);
-                    editLink.setAttribute("data-roles",`${user.roles}`)
+                    editLink.setAttribute("data-title",`${course.title}`);
+                    editLink.setAttribute("data-id",`${course.id}`);
                     editLink.setAttribute("onclick","fillModal(this,'edit')");
                     editLink.setAttribute("data-toggle","modal");
                     editLink.setAttribute("data-target","#exampleModalCenter");
@@ -63,23 +55,18 @@ function searchUsers(str) {
                     deleteLink.innerText="Delete"
                     deleteLink.className="btn btn-danger"
 
-                    deleteLink.setAttribute("data-username",`${user.username}`);
-                    deleteLink.setAttribute("data-id",`${user.id}`);
-                    deleteLink.setAttribute("data-email",`${user.email}`);
-                    deleteLink.setAttribute("data-roles",`${user.roles}`)
+                    deleteLink.setAttribute("data-username",`${course.title}`);
+                    deleteLink.setAttribute("data-id",`${course.id}`);
                     deleteLink.setAttribute("onclick","fillModal(this,'delete')");
                     deleteLink.setAttribute("data-toggle","modal");
                     deleteLink.setAttribute("data-target","#exampleModalCenter");
 
-                    td1.innerHTML=user.username; 
-                    td2.innerHTML=user.email; 
-                    td3.innerHTML=user.roles;
+                    td1.innerHTML=course.id; 
+                    td2.innerHTML=course.title;
                     td4.appendChild(viewLink)
                     td5.appendChild(editLink)
                     td6.appendChild(deleteLink)
-                    td7.innerHTML=user.id;
-                    
-                    tr.appendChild(td7);
+
                     tr.appendChild(td1);
                     tr.appendChild(td2);
                     tr.appendChild(td3);
@@ -101,9 +88,7 @@ function searchUsers(str) {
             str="all"
         }
     
-     let url=`/admin/search/users/${str}`
+     let url=`/admin/search/courses/${str}`
     xmlhttp.open("GET",url, true);
     xmlhttp.send();
 }
-
-
