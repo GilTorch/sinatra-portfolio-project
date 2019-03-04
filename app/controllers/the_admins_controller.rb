@@ -108,5 +108,34 @@ class TheAdminsController < ApplicationController
         return "#{jsonResult}"
     end
 
+    post "/admin/courses" do 
+        @course=Course.new(title:@params[:title])
+        if @course.save 
+            redirect "/admin/courses"
+        else 
+            flash[:danger]="There was an issue while adding the course..."
+            redirect "/admin/courses"
+        end
+    end
+
+    patch "/admin/courses/:id" do 
+        
+        course=Course.find_by(params[:id])
+        if course 
+           Course.update(params[:id],:title=>@params[:title])
+            # return "#{user.update!}"
+        else 
+            flash[:danger]="No Course exists for that id."
+        end
+        redirect "/admin/courses"
+    end
+
+    delete "/admin/courses/:id" do 
+        if_is_not_admin_redirect 
+        Course.find(params[:id]).destroy
+        redirect "/admin/courses"
+    end
+
+
 end
 

@@ -33,9 +33,9 @@ function searchCourses(str){
                   viewLink.className="btn btn-success";
                   viewLink.setAttribute("data-title",`${course.title}`);
                   viewLink.setAttribute("data-id",`${course.id}`);
-                  viewLink.setAttribute("onclick","fillModal(this,'view')");
+                  viewLink.setAttribute("onclick","fillCourseModal(this,'view')");
                   viewLink.setAttribute("data-toggle","modal");
-                  viewLink.setAttribute("data-target","#exampleModalCenter");
+                  viewLink.setAttribute("data-target","#modalCourse");
                   
 
                   let editLink=document.createElement("a")
@@ -45,9 +45,9 @@ function searchCourses(str){
 
                   editLink.setAttribute("data-title",`${course.title}`);
                   editLink.setAttribute("data-id",`${course.id}`);
-                  editLink.setAttribute("onclick","fillModal(this,'edit')");
+                  editLink.setAttribute("onclick","fillCourseModal(this,'edit')");
                   editLink.setAttribute("data-toggle","modal");
-                  editLink.setAttribute("data-target","#exampleModalCenter");
+                  editLink.setAttribute("data-target","#modalCourse");
 
                   let deleteLink=document.createElement("a")
                   deleteLink.href=`#`
@@ -56,9 +56,9 @@ function searchCourses(str){
 
                   deleteLink.setAttribute("data-title",`${course.title}`);
                   deleteLink.setAttribute("data-id",`${course.id}`);
-                  deleteLink.setAttribute("onclick","fillModal(this,'delete')");
+                  deleteLink.setAttribute("onclick","fillCourseModal(this,'delete')");
                   deleteLink.setAttribute("data-toggle","modal");
-                  deleteLink.setAttribute("data-target","#exampleModalCenter");
+                  deleteLink.setAttribute("data-target","#modalCourse");
 
                   td1.innerHTML=course.id; 
                   td2.innerHTML=course.title; 
@@ -92,10 +92,73 @@ function searchCourses(str){
   xmlhttp.open("GET",url, true);
   xmlhttp.send();
 }
+
+function fillCourseModal(element,state){
+  let title=element.dataset.title;
+  let id=element.dataset.id; 
+  let modalCourseTitle=document.getElementById("modalCourseTitle")
+  let modalCourseSave=document.getElementById("modalCourseSave");
+  let modalCourseSubmit=document.getElementById("modalCourseSubmit");
+  let modalCourseMethod=document.getElementById("modalCourseMethod");
+  modalCourseSubmit.innerHTML=""
+
+  let modalCourseForm=document.getElementById("modalCourseForm");
+  let modalTitle=document.getElementById("modalTitle");
+
+
+  modalTitle.innerHTML=`COURSE ID: ${id}`;
+  modalCourseTitle.value=`${title}`
+
+  if(state=="view"){
+    modalCourseTitle.readOnly=true;
+    modalCourseSubmit.style.display="none";
+    modalCourseSave.style.display="none";
+   
+  }else if(state==="edit"){
+    modalCourseTitle.readOnly=false;
+    modalCourseSubmit.style.display="inline-block";
+    modalCourseSubmit.value="Edit"
+    modalCourseSave.style.display="none";
+    modalCourseForm.setAttribute("method",`POST`)
+    modalCourseForm.setAttribute("action",`/admin/courses/${id}`)
+    modalCourseMethod.value="patch"
+  }else if(state==="delete"){
+    modalTitle.innerHTML=`Delete Course?`;
+    modalCourseTitle.readOnly=true;
+    modalCourseSubmit.style.display="inline-block";
+    modalCourseSubmit.value="Confirm"
+    modalCourseSave.style.display="none";
+    modalCourseForm.setAttribute("method",`POST`)
+    modalCourseForm.setAttribute("action",`/admin/courses/${id}`)
+    modalCourseMethod.value="delete"
+  }
+
+}
 </script>
 <div style="margin-top:40px">
 <h1>Courses</h1>
-<input id="searchCourse" placeholder="Search courses by title..." onKeyUp="searchCourses(this.value)" class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search">
+<%# <input id="searchCourse" placeholder="Search courses by title..." onKeyUp="searchCourses(this.value)" class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search"> %>
+<style>
+.add-button{
+    background-color:red;
+    border-radius:50%;
+    display:flex;
+    justify-content: center;
+    align-items:center;
+    color:white;
+    width:70px;
+    height:70px;
+    position:fixed;
+    right:20px;
+    bottom:20px;
+    font-size:40px;
+}
+
+.add-button:hover,.add-button:active,.add-button:visited {
+    color:white;
+    text-decoration:none;
+}
+</style>
 <div class="table-responsive">
         <table id="courseSearchResults" class="table table-striped table-sm">
           <thead>
@@ -113,13 +176,52 @@ function searchCourses(str){
                 <td><%= course.title %></td>
                 <td><%= course.chapters.count %></td>
                 <td>
-                    <a class="btn btn-success" data-id="<%= course.id %>" data-title="<%= course.title %>" onClick="fillModal(this,'view')" data-toggle="modal" data-target="#exampleModalCenter" href="#">View</a>
-                    <a class="btn btn-secondary" data-id="<%= course.id %>" data-title="<%= course.title %>" onClick="fillModal(this,'edit')" data-toggle="modal" data-target="#exampleModalCenter" href="#">Edit</a>
-                    <button class="btn btn-danger" data-id="<%= course.id %>" data-title="<%= course.title %>" onClick="fillModal(this,'delete')" data-toggle="modal" data-target="#exampleModalCenter">Delete</button>
+                    <a class="btn btn-success" data-id="<%= course.id %>" data-title="<%= course.title %>" onClick="fillCourseModal(this,'view')" data-toggle="modal" data-target="#courseModal" href="#">View</a>
+                    <a class="btn btn-secondary" data-id="<%= course.id %>" data-title="<%= course.title %>" onClick="fillCourseModal(this,'edit')" data-toggle="modal" data-target="#courseModal" href="#">Edit</a>
+                    <button class="btn btn-danger" data-id="<%= course.id %>" data-title="<%= course.title %>" onClick="fillCourseModal(this,'delete')" data-toggle="modal" data-target="#courseModal">Delete</button>
                 </td>
             </tr>
           <% end %>
           </tbody>
     </table>
+</div>
+</div>
+<div class="modal fade" id="courseModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 id="modalTitle" class="modal-title" id="modalTitle">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="modalCourseForm">
+          <input type="hidden" id="modalCourseMethod" name="_method" value="PATCH"/>
+          <div class="form-group">
+            <input type="hidden" name="id" id="modalCourseId">
+          </div>
+          <div class="form-group">
+          <label for="title">Title:</label>
+          <input id="modalCourseTitle"class="form-control" id="title" type="text" name="title">
+          </div>
+          <input id="modalCourseSubmit" type="submit" class="btn btn-primary" value="Submit"/>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button id="modalCourseSave" onClick="saveUser()" type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+  <form  method="POST" action="/admin/courses">
+  <h3>Add A New Course</h3>
+  <div class="form-group">
+  <label for="title">Title:</label>
+  <input class="form-control" type="text" name="title">
+  </div>
+  <input type="submit" class="btn btn-primary" value="Submit"/>
+</form>
 </div>
 </div>
