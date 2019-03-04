@@ -3,6 +3,7 @@ class TheAdminsController < ApplicationController
     get "/admin" do 
         if_is_not_admin_redirect
         @users=User.all 
+        @js="searchUsers"
         erb :"admin/users/index.html",:layout => :admin_layout
     end
 
@@ -81,11 +82,12 @@ class TheAdminsController < ApplicationController
     get "/admin/courses" do 
         if_is_not_admin_redirect 
         @courses=Course.all
+        @js="searchCourses"
         erb :"admin/courses/index.html",:layout => :admin_layout
     end
 
     get "/admin/search/courses/:title" do 
-        if @params[:username]!="all"
+        if @params[:title]!="all"
             @courses=Course.where("title like ?","%#{@params[:title]}%")
             # return "IT'S ALL"
         else 
@@ -97,7 +99,7 @@ class TheAdminsController < ApplicationController
         result=[]
 
         @courses.each_with_index do |course| 
-           result.push({id:course.id,title:course.title})
+           result.push({id:course.id,title:course.title,chapters_count:course.chapters.count})
         end
         
         jsonResult=result.to_json

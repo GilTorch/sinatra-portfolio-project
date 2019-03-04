@@ -1,10 +1,6 @@
-$(document).ready(function(){
-    
-})
 
-
-function searchUsers(str,who) {
-    alert(who)
+function searchUsers(str) {
+    alert(str)
     let allRows=document.getElementsByClassName("tr")
     var xmlhttp = new XMLHttpRequest();
     while( allRows[0] ) {
