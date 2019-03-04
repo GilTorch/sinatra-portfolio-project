@@ -3,7 +3,8 @@ $(document).ready(function(){
 })
 
 
-function searchUsers(str) {
+function searchUsers(str,who) {
+    alert(who)
     let allRows=document.getElementsByClassName("tr")
     var xmlhttp = new XMLHttpRequest();
     while( allRows[0] ) {
